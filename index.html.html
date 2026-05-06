@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do Zero ao Primeiro Cliente — Jurídico do Zero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --gold: #C8873A;
+    --gold-light: #E8B87A;
+    --gold-pale: #FDF3E7;
+    --white: #F5F2EC;
+    --blue: #1A3C5E;
+    --blue-light: #EAF0F7;
+    --gray: #888;
+    --dark: #1A1A1A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 80px 24px;
+    background: var(--black);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(200,135,58,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,135,58,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,135,58,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 1s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .brand-pill {
+    display: inline-block;
+    border: 0.5px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 100px;
+    margin-bottom: 40px;
+    animation: fadeUp 1s ease 0.1s both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 12px;
+    color: var(--white);
+    animation: fadeUp 1s ease 0.2s both;
+  }
+
+  .hero-title .gold { color: var(--gold); }
+
+  .hero-sub {
+    font-size: clamp(16px, 2.5vw, 20px);
+    color: rgba(245,242,236,0.6);
+    max-width: 580px;
+    margin: 24px auto 48px;
+    animation: fadeUp 1s ease 0.3s both;
+  }
+
+  .hero-sub strong { color: var(--gold-light); font-weight: 500; }
+
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 48px;
+    animation: fadeUp 1s ease 0.35s both;
+  }
+
+  .cta-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 18px 48px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+
+  .cta-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(200,135,58,0.3);
+  }
+
+  .hero-guarantee {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--gray);
+    animation: fadeUp 1s ease 0.5s both;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 24px; }
+
+  .container { max-width: 900px; margin: 0 auto; }
+  .container-sm { max-width: 680px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .section-body {
+    font-size: 17px;
+    color: rgba(245,242,236,0.7);
+    line-height: 1.8;
+  }
+
+  /* ── DOR ── */
+  .dor { background: var(--black); border-top: 0.5px solid rgba(200,135,58,0.2); }
+
+  .dor-quote {
+    background: rgba(200,135,58,0.06);
+    border-left: 3px solid var(--gold);
+    padding: 28px 32px;
+    margin: 40px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.6;
+  }
+
+  /* ── PARA QUEM É ── */
+  .para-quem { background: #0D0D0D; }
+
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 600px) { .check-grid { grid-template-columns: 1fr; } }
+
+  .check-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 20px;
+    background: rgba(255,255,255,0.02);
+    border: 0.5px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    transition: border-color 0.3s;
+  }
+
+  .check-item:hover { border-color: rgba(200,135,58,0.3); }
+
+  .check-icon {
+    width: 22px;
+    height: 22px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .check-icon svg { width: 11px; height: 11px; }
+
+  .check-text { font-size: 15px; color: rgba(245,242,236,0.8); line-height: 1.5; }
+
+  /* ── MÓDULOS ── */
+  .modulos { background: var(--black); }
+
+  .modulos-title-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .modulo-card {
+    display: flex;
+    gap: 24px;
+    padding: 28px 32px;
+    border: 0.5px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    background: rgba(255,255,255,0.015);
+    transition: all 0.3s ease;
+    align-items: flex-start;
+  }
+
+  .modulo-card:hover {
+    border-color: rgba(200,135,58,0.25);
+    background: rgba(200,135,58,0.03);
+    transform: translateX(4px);
+  }
+
+  .modulo-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    min-width: 80px;
+    padding-top: 2px;
+  }
+
+  .modulo-body h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .modulo-body p {
+    font-size: 14px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.6;
+  }
+
+  .bonus-card {
+    background: rgba(200,135,58,0.06);
+    border: 0.5px solid rgba(200,135,58,0.25);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+  }
+
+  .bonus-card:hover { background: rgba(200,135,58,0.1); }
+
+  .bonus-badge {
+    background: var(--gold);
+    color: var(--black);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  /* ── GARANTIA ── */
+  .garantia {
+    background: #0D0D0D;
+    border-top: 0.5px solid rgba(200,135,58,0.15);
+    border-bottom: 0.5px solid rgba(200,135,58,0.15);
+  }
+
+  .garantia-box {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 600px) { .garantia-box { flex-direction: column; text-align: center; } }
+
+  .garantia-icon {
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .garantia-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .garantia-text p { font-size: 15px; color: rgba(245,242,236,0.65); }
+
+  /* ── PREÇO ── */
+  .preco { background: var(--black); text-align: center; }
+
+  .preco-box {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 56px 48px;
+    border: 0.5px solid rgba(200,135,58,0.3);
+    border-radius: 16px;
+    background: rgba(200,135,58,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .preco-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .preco-de {
+    font-size: 14px;
+    color: var(--gray);
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+
+  .preco-por {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .preco-por span { font-size: 28px; vertical-align: top; margin-top: 12px; display: inline-block; }
+
+  .preco-info {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 36px;
+  }
+
+  .preco-includes {
+    text-align: left;
+    margin-bottom: 36px;
+    border-top: 0.5px solid rgba(255,255,255,0.08);
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+    padding: 24px 0;
+  }
+
+  .preco-includes-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: rgba(245,242,236,0.7);
+    padding: 6px 0;
+  }
+
+  .preco-includes-item::before {
+    content: '—';
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── FAQ ── */
+  .faq { background: #0D0D0D; }
+
+  .faq-item {
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+    padding: 28px 0;
+  }
+
+  .faq-q {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-q::after { content: '+'; color: var(--gold); font-size: 22px; font-weight: 300; }
+
+  .faq-a {
+    font-size: 15px;
+    color: rgba(245,242,236,0.6);
+    line-height: 1.8;
+  }
+
+  /* ── CTA FINAL ── */
+  .cta-final {
+    background: var(--black);
+    text-align: center;
+    padding: 120px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-final::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 60% at 50% 100%, rgba(200,135,58,0.12) 0%, transparent 60%);
+  }
+
+  .cta-final-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 54px);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .cta-final-sub {
+    font-size: 17px;
+    color: rgba(245,242,236,0.55);
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505;
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  footer p { font-size: 12px; color: var(--gray); }
+  footer strong { color: var(--gold); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    section { padding: 72px 20px; }
+    .modulo-card { flex-direction: column; gap: 12px; }
+    .modulo-num { min-width: auto; }
+    .preco-box { padding: 40px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="brand-pill">Jurídico do Zero</div>
+    <h1 class="hero-title">
+      Você passou na OAB.<br>
+      <span class="gold">E agora?</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">
+      O método prático que a faculdade nunca te ensinou — e que pode te levar do zero ao <strong>primeiro cliente em 30 dias</strong>, sem depender de indicação, escritório famoso ou anos de experiência.
+    </p>
+    <a href="#preco" class="cta-primary">QUERO O GUIA AGORA — R$ 97,00</a>
+    <p class="hero-guarantee">Pagamento único · Acesso imediato · Garantia de 7 dias</p>
+  </div>
+</section>
+
+<!-- ── DOR ── -->
+<section class="dor">
+  <div class="container-sm reveal">
+    <div class="section-label">O problema que ninguém fala</div>
+    <h2 class="section-title">A faculdade te ensinou a advogar.<br>Mas não te ensinou a ter para quem advogar.</h2>
+    <div class="dor-quote">
+      "Eu estudei tanto, passei numa das provas mais difíceis do Brasil... e agora não sei como conseguir meu primeiro cliente."
+    </div>
+    <p class="section-body">
+      Se você já se fez essa pergunta, saiba: você não está sozinho. Essa é a realidade de 90% dos advogados recém-formados — e não é culpa sua. As faculdades de Direito formam excelentes advogados, mas não ensinam como construir uma carreira do zero.
+    </p>
+    <br>
+    <p class="section-body">
+      Enquanto você aprendia direito processual, ninguém te mostrou como montar seu discurso de posicionamento. Enquanto estudava a CLT, ninguém te explicou como abordar um cliente sem parecer desesperado. Esse guia existe para preencher exatamente esse buraco.
+    </p>
+  </div>
+</section>
+
+<!-- ── PARA QUEM É ── -->
+<section class="para-quem">
+  <div class="container reveal">
+    <div class="section-label">Para quem é este guia</div>
+    <h2 class="section-title">Este guia foi feito para você se:</h2>
+    <div class="check-grid">
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#080808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">Você acabou de passar na OAB e não sabe por onde começar para conseguir clientes</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#080808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">Você está nos primeiros anos da advocacia e sente que está patinando sem resultado</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#080808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">Você tem conhecimento jurídico mas não sabe como se posicionar e captar clientes</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#080808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">Você quer parar de cobrar barato por insegurança e começar a cobrar o que seu trabalho vale</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#080808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">Você quer construir uma carteira sem depender de escritório famoso ou família com contatos</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#080808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="check-text">Você quer um método prático — não teoria, não motivação vazia, não promessas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MÓDULOS ── -->
+<section class="modulos">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">O que está incluso</div>
+      <h2 class="section-title">5 módulos completos<br>+ 2 bônus exclusivos</h2>
+      <p class="section-body" style="margin-bottom: 48px;">Tudo o que você precisa para ir do zero ao primeiro cliente — em um único guia.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="modulo-card">
+        <div class="modulo-num">Módulo 1</div>
+        <div class="modulo-body">
+          <h3>A realidade que a faculdade não te contou</h3>
+          <p>Por que 90% dos recém-formados não conseguem clientes no primeiro ano, onde estão as oportunidades em 2026 e o erro fatal de tentar ser advogado de tudo.</p>
+        </div>
+      </div>
+
+      <div class="modulo-card">
+        <div class="modulo-num">Módulo 2</div>
+        <div class="modulo-body">
+          <h3>Defina seu posicionamento em 24 horas</h3>
+          <p>O método das 3 perguntas para escolher sua área sem medo de errar, como montar seu discurso em 1 frase e a checklist de presença digital mínima viável.</p>
+        </div>
+      </div>
+
+      <div class="modulo-card">
+        <div class="modulo-num">Módulo 3</div>
+        <div class="modulo-body">
+          <h3>Onde e como encontrar seus primeiros clientes</h3>
+          <p>Os 5 canais que mais geram clientes para iniciantes, scripts prontos para ativar sua rede, como propor parcerias e usar o Instagram respeitando a OAB.</p>
+        </div>
+      </div>
+
+      <div class="modulo-card">
+        <div class="modulo-num">Módulo 4</div>
+        <div class="modulo-body">
+          <h3>A consulta, a proposta e o fechamento</h3>
+          <p>Como conduzir a primeira reunião em 4 etapas, precificar honorários sem cobrar barato, o que não pode faltar no contrato e como lidar com o "vou pensar".</p>
+        </div>
+      </div>
+
+      <div class="modulo-card">
+        <div class="modulo-num">Módulo 5</div>
+        <div class="modulo-body">
+          <h3>Fidelizar e gerar indicações do primeiro cliente</h3>
+          <p>Os 5 pilares do atendimento que fideliza, scripts para pedir indicação sem constranger e os marcos reais da carreira no primeiro ano.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top: 32px;">
+      <div class="bonus-card">
+        <div class="bonus-badge">Bônus 1</div>
+        <div class="modulo-body">
+          <h3>Checklist: 30 ações para o primeiro cliente em 30 dias</h3>
+          <p>Tabela completa com uma ação por dia, dica prática e espaço para marcar cada etapa — da Semana 1 (Fundação) até a Semana 4 (Aceleração).</p>
+        </div>
+      </div>
+
+      <div class="bonus-card">
+        <div class="bonus-badge">Bônus 2</div>
+        <div class="modulo-body">
+          <h3>Modelo de Contrato de Honorários Comentado</h3>
+          <p>Contrato completo com 10 cláusulas e notas explicativas em cada uma. É só remover as notas e usar com o cliente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GARANTIA ── -->
+<section class="garantia">
+  <div class="container reveal">
+    <div class="garantia-box">
+      <div class="garantia-icon">7<br>dias</div>
+      <div class="garantia-text">
+        <h3>Garantia total de 7 dias</h3>
+        <p>Se por qualquer motivo você não ficar satisfeito com o conteúdo nos primeiros 7 dias após a compra, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia. Essa é a nossa garantia — porque confiamos no conteúdo que entregamos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PREÇO ── -->
+<section class="preco" id="preco">
+  <div class="container reveal">
+    <div style="text-align:center; margin-bottom: 48px;">
+      <div class="section-label">Investimento</div>
+      <h2 class="section-title">Acesso completo ao guia</h2>
+    </div>
+    <div class="preco-box">
+      <p class="preco-de">De R$ 197,00</p>
+      <div class="preco-por"><span>R$</span> 97</div>
+      <p class="preco-info">Pagamento único · Acesso imediato · Sem mensalidade</p>
+      <div class="preco-includes">
+        <div class="preco-includes-item">5 módulos completos</div>
+        <div class="preco-includes-item">Checklist 30 dias (Bônus 1)</div>
+        <div class="preco-includes-item">Contrato de honorários comentado (Bônus 2)</div>
+        <div class="preco-includes-item">Acesso vitalício ao material</div>
+        <div class="preco-includes-item">Garantia de 7 dias</div>
+      </div>
+      <a href="https://pay.kiwify.com.br/SEU-LINK-AQUI" class="cta-primary" style="display:block; text-align:center;">QUERO O GUIA AGORA</a>
+      <p style="font-size:12px; color:var(--gray); margin-top:14px; text-align:center;">Pix · Cartão de crédito · Boleto</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq">
+  <div class="container-sm reveal">
+    <div class="section-label">Perguntas frequentes</div>
+    <h2 class="section-title">Dúvidas</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Como vou receber o material?</div>
+      <div class="faq-a">Após a confirmação do pagamento, você recebe um e-mail com as instruções de acesso. O conteúdo fica disponível imediatamente na sua área de membros.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">O material funciona para qualquer área do Direito?</div>
+      <div class="faq-a">Sim. O método de posicionamento, captação, reunião e fechamento funciona para qualquer área. O Módulo 2 inclusive te ajuda a escolher sua área ideal caso ainda não tenha decidido.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Preciso ter experiência para aplicar o conteúdo?</div>
+      <div class="faq-a">Não. O guia foi criado especificamente para quem está começando do zero — recém-aprovados na OAB ou advogados nos primeiros anos de carreira.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Por quanto tempo tenho acesso?</div>
+      <div class="faq-a">O acesso é vitalício. Você pode consultar o material sempre que precisar, sem prazo de expiração.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">E se eu não gostar?</div>
+      <div class="faq-a">Você tem 7 dias de garantia total. Se por qualquer motivo não ficar satisfeita, devolvemos 100% do valor pago — sem perguntas.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ── -->
+<section class="cta-final">
+  <h2 class="cta-final-title">Seu primeiro cliente<br>está esperando.</h2>
+  <p class="cta-final-sub">A única diferença entre você e quem já tem clientes é o método.</p>
+  <a href="#preco" class="cta-primary">QUERO O GUIA AGORA — R$ 97,00</a>
+  <p style="margin-top:16px; font-size:12px; color:var(--gray);">Garantia de 7 dias · Acesso imediato</p>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p><strong>Jurídico do Zero</strong> · @juridicodozer0</p>
+  <p style="margin-top:8px;">© 2026 Jurídico do Zero. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+
+</body>
+</html>
